@@ -14,7 +14,7 @@ Page({
         carArray: [],
         minPrice: 20,//起送價格
         payDesc: '',
-        deliveryPrice: 4,//配送費
+        goodtext: '欢迎您来用餐',//配送費
         fold: true,
         selectFoods: [{ price: 20, count: 2 }],
         cartShow: 'none',
@@ -168,7 +168,7 @@ Page({
             payDesc: this.payDesc()
         });
         wx.request({
-          url: 'http://localhost:8080/sell/buyer/product/list',
+          url: 'http://10.2.5.200:8080/sell/buyer/product/list',
           method: 'GET',
           header: {
             'content-type': 'application/json'
