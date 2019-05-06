@@ -16,7 +16,7 @@ Page({
         payDesc: '',
         goodtext: '欢迎您来用餐',//配送費
         fold: true,
-        selectFoods: [{ price: 20, count: 2 }],
+        selectFoods: [{ price: 0, count: 0 }],
         cartShow: 'none',
         status: 0,
     },
@@ -33,10 +33,12 @@ Page({
         var parentIndex = e.currentTarget.dataset.parentindex;
         this.data.goods[parentIndex].foods[index].Count--
         var num = this.data.goods[parentIndex].foods[index].Count;
+        var name = this.data.goods[parentIndex].foods[index].name;
         var mark = 'a' + index + 'b' + parentIndex
         var price = this.data.goods[parentIndex].foods[index].price;
         var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
-        var carArray1 = this.data.carArray.filter(item => item.mark != mark);
+        var carArray1=this.data.carArray.filter(item => item.mark != mark);
+       
         carArray1.push(obj);
         console.log(carArray1);
         this.setData({
@@ -64,7 +66,7 @@ Page({
         }
     },
     decreaseShopCart: function (e) {
-        console.log('1');
+        console.log('减除一个');
         this.decreaseCart(e);
     },
     //添加到购物车
@@ -107,14 +109,11 @@ Page({
             //payDesc: this.payDesc()
         });
     },
-    //差几元起送
+    //绿色按钮
     payDesc() {
         if (this.data.totalPrice === 0) {
-            return `￥${this.data.minPrice}元起送`;
-        } else if (this.data.totalPrice < this.data.minPrice) {
-            let diff = this.data.minPrice - this.data.totalPrice;
-            return '还差' + diff + '元起送';
-        } else {
+            return '请点餐';
+        }  else {
             return '去结算';
         }
     },
@@ -174,11 +173,11 @@ Page({
             'content-type': 'application/json'
           },
           success: function (res) {
+          
             console.log(res.data)
             that.setData({
-              goods: res.data.data
+              goods: res.data.data,
             });
-
           }
         })
 
@@ -195,5 +194,16 @@ Page({
     },
     onUnload: function () {
         // 页面关闭
+    }
+    ,
+    empty:function(){
+      this.setData({
+        carArray: [],
+        goods: this.data.goods
+      })
+      this.calTotalPrice();
+      this.setData({
+        payDesc: this.payDesc()
+      })
     }
 })
