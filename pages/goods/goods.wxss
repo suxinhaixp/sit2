@@ -8,7 +8,7 @@
   bottom: 46px;
   overflow: hidden;
   font-family:"微软雅黑";
-}
+}inner iconfont icon-jian
 
 .goods .menu-wrapper {
   flex: 0 0 80px;

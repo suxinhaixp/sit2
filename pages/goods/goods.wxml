@@ -70,16 +70,15 @@
           <view class="desc">{{food.description}}</view>
           <view class="price">
             <view class="now">￥{{food.price}}</view>
-            <view class="old" wx:if="{{food.oldPrice}}">￥{{food.oldPrice}}</view>
           </view>
 
           <!--cartControl-->
           <view class="cartControl-wrapper">
             <view class="cartControl">
               <view name="fade">
-                <view class="cart-decrease" wx:if="{{food.Count > 0}}" data-item-index="{{index}}" data-parentIndex="{{parentIndex}}" catchtap="decreaseCart">
-                  <view class="inner iconfont icon-jian" style="font-size:24px;color:#00A0DC;"></view>
-                </view>
+                <view class="cart-decrease" wx:if="{{food.Count > 0}}" data-item-index="{{index}}" data-parentIndex="{{parentIndex}}"  catchtap="decreaseCart">
+                <view class="inner iconfont icon-jian"  style="font-size:24px;color:#00A0DC;"></view>
+                </view>           
                 <view class="cart-count" wx:if="{{food.Count > 0 }}">{{food.Count}}</view>
                 <view class=" iconfont icon-jia cart-add " style="color:#00A0DC; " data-item-index="{{index}}" data-parentIndex="{{parentIndex}}" catchtap="addCart"></view>
               </view>

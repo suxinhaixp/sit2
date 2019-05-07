@@ -37,14 +37,16 @@ Page({
         var mark = 'a' + index + 'b' + parentIndex
         var price = this.data.goods[parentIndex].foods[index].price;
         var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
-        var carArray1=this.data.carArray.filter(item => item.mark != mark);
-       
+      var carArray1=this.data.carArray.filter(item => item.mark != mark); 
+      if (obj.num > 0) {
         carArray1.push(obj);
+      }
         console.log(carArray1);
         this.setData({
             carArray: carArray1,
             goods: this.data.goods
         })
+        console.log(this.data.goods)
         this.calTotalPrice()
         this.setData({
             payDesc: this.payDesc(),
@@ -79,8 +81,8 @@ Page({
         var num = this.data.goods[parentIndex].foods[index].Count;
         var name = this.data.goods[parentIndex].foods[index].name;
         var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
-        var carArray1 = this.data.carArray.filter(item => item.mark != mark)
-        carArray1.push(obj)
+      var carArray1 = this.data.carArray.filter(item => item.mark != mark)  
+          carArray1.push(obj);
         console.log(carArray1);
         this.setData({
             carArray: carArray1,
@@ -161,13 +163,15 @@ Page({
         });
     },
     onLoad: function (options) {
+      const appInstance = getApp()
+      console.log(appInstance.globalData)
         // 页面初始化 options为页面跳转所带来的参数
         let that=this
         this.setData({
             payDesc: this.payDesc()
         });
         wx.request({
-          url: 'http://10.2.5.200:8080/sell/buyer/product/list',
+          url: 'http://10.2.20.127:8080/sell/buyer/product/list',
           method: 'GET',
           header: {
             'content-type': 'application/json'
@@ -178,6 +182,8 @@ Page({
             that.setData({
               goods: res.data.data,
             });
+            appInstance.globalData.goods=res.data.data;
+            console.log(appInstance.globalData)
           }
         })
 
@@ -197,13 +203,24 @@ Page({
     }
     ,
     empty:function(){
+      const appInstance = getApp()
       this.setData({
         carArray: [],
-        goods: this.data.goods
+        goods: appInstance.globalData.goods
       })
+      console.log(this.data);
       this.calTotalPrice();
       this.setData({
         payDesc: this.payDesc()
       })
+      var count1 = 0;
+      if (count1 == this.data.carArray.length) {
+        if (this.data.num == 0) {
+          that.setData({
+            cartShow: 'none'
+          })
+        }
+      }
+      console.log(this.data.totalCount);
     }
 })
