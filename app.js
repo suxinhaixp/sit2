@@ -5,27 +5,38 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-  },
-  getUserInfo:function(cb){
-    var that = this
-    if(this.globalData.userInfo){
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    }else{
-      //调用登录接口
-      wx.login({
-        success: function () {
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo)
+    let that = this;
+    var appid =that.globalData.appid;
+    var secret =that.globalData.secret;
+    wx.login({
+      
+      success: function (res) {
+        if (res.code) {
+          console.log(res.code);
+          // 发起网络请求
+          console.log(appid);
+          wx.request({
+            url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&grant_type=authorization_code&js_code=' + res.code,
+            header: {
+              'content-type': 'application/json'
+            },
+            method: 'GET',
+            data: {
+              // grant_type: authorization_code
+            },
+            success: function (now) {
+              console.log(now); //获取openid 
             }
           })
         }
-      })
-    }
+      }
+    })
   },
   globalData:{
     userInfo:null,
-    goods:null
+    goods:null,
+    appid: 'wxb234425ad5818014',
+    secret: 'f30d6164517fbe6f20feb3cd29aad4bd',
+    openid:''
   }
 })
