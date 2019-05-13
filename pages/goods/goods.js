@@ -171,7 +171,7 @@ Page({
             payDesc: this.payDesc()
         });
         wx.request({
-          url: 'http://127.0.0.1:8080/sell/buyer/product/list',
+          url: 'https://suxinhaixp.xyz/sell/buyer/product/list',
           method: 'GET',
           header: {
             'content-type': 'application/json'
