@@ -9,7 +9,6 @@ App({
     var appid =that.globalData.appid;
     var secret =that.globalData.secret;
     wx.login({
-      
       success: function (res) {
         if (res.code) {
           // 发起网络请求
