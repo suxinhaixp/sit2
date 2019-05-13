@@ -12,9 +12,7 @@ App({
       
       success: function (res) {
         if (res.code) {
-          console.log(res.code);
           // 发起网络请求
-          console.log(appid);
           wx.request({
             url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&grant_type=authorization_code&js_code=' + res.code,
             header: {
@@ -25,7 +23,8 @@ App({
               // grant_type: authorization_code
             },
             success: function (now) {
-              console.log(now); //获取openid 
+              that.globalData.openid=now.data.openid;
+              console.log(that.globalData.openid);
             }
           })
         }
@@ -37,6 +36,6 @@ App({
     goods:null,
     appid: 'wxb234425ad5818014',
     secret: 'f30d6164517fbe6f20feb3cd29aad4bd',
-    openid:''
+    openid:null
   }
 })
