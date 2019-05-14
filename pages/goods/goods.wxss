@@ -680,3 +680,34 @@
 .icon-weibiaoti6-copy:before {
   content: "\e670";
 }
+
+
+.table {
+border: 5px solid rebeccapurple;
+border-right: 0;
+border-left: 0;
+border-top: 0;
+border-bottom: 0;
+width: 95%;
+}
+
+.tr {
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
+
+.th, .td {
+padding: 10px;
+border-bottom: 1px solid #dadada;
+border-right: 1px solid #dadada;
+text-align: center;
+width: 100%;
+font-size: 75%;
+}
+
+.th {
+font-weight: 400;
+background-color: #dadada;
+}
+

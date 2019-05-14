@@ -1,11 +1,8 @@
 // pages/goods/goods.js
 Page({
     data: {
-        goods: [
-     {
-
-     }
-        ],
+        goods: [{}],
+        vegprice: [{}],
         toView: '0',
         scrollTop: 100,
         foodCounts: 0,
@@ -184,6 +181,21 @@ Page({
             });
             appInstance.globalData.goods=res.data.data;
             console.log(appInstance.globalData)
+          }
+        })
+
+        wx.request({
+          url: 'http://10.2.20.127:8080/sell/spider',
+          method:'GET',
+          header: {
+            'content-type': 'application/json'
+          },
+          success: function (res) {
+           
+          that.setData({
+            vegprice:res.data.Veg_price
+          })
+            console.log(that.data.vegprice);
           }
         })
 
