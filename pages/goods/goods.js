@@ -16,7 +16,9 @@ Page({
         selectFoods: [{ price: 0, count: 0 }],
         cartShow: 'none',
         status: 0,
-    },
+        allorderdetial:null,
+        allorder:[{}],
+            },
     selectMenu: function (e) {
         var index = e.currentTarget.dataset.itemIndex;
         this.setData({
@@ -31,9 +33,10 @@ Page({
         this.data.goods[parentIndex].foods[index].Count--
         var num = this.data.goods[parentIndex].foods[index].Count;
         var name = this.data.goods[parentIndex].foods[index].name;
+        var id = this.data.goods[parentIndex].foods[index].id;
         var mark = 'a' + index + 'b' + parentIndex
         var price = this.data.goods[parentIndex].foods[index].price;
-        var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
+        var obj = { price: price, num: num, mark: mark, name: name, id: id,index: index, parentIndex: parentIndex };
       var carArray1=this.data.carArray.filter(item => item.mark != mark); 
       if (obj.num > 0) {
         carArray1.push(obj);
@@ -74,10 +77,11 @@ Page({
         var parentIndex = e.currentTarget.dataset.parentindex;
         this.data.goods[parentIndex].foods[index].Count++;
         var mark = 'a' + index + 'b' + parentIndex
+        var id = this.data.goods[parentIndex].foods[index].id;
         var price = this.data.goods[parentIndex].foods[index].price;
         var num = this.data.goods[parentIndex].foods[index].Count;
         var name = this.data.goods[parentIndex].foods[index].name;
-        var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
+        var obj = { price: price, num: num, mark: mark, name: name, id: id,index: index, parentIndex: parentIndex };
       var carArray1 = this.data.carArray.filter(item => item.mark != mark)  
           carArray1.push(obj);
         console.log(carArray1);
@@ -118,15 +122,16 @@ Page({
     },
     //結算
     pay() {
-        if (this.data.totalPrice < this.data.minPrice) {
-            return;
-        }
-        // window.alert('支付' + this.totalPrice + '元');
-        //确认支付逻辑
-        var resultType = "success";
-        wx.redirectTo({
-            url: '../goods/pay/pay?resultType=' + resultType
-        })
+      const appInstance = getApp()
+      appInstance.globalData.carinfo=this.data.carArray;
+      console.log(appInstance.globalData.carinfo)
+      wx.navigateTo({
+        url:'../paycontext/paycontext',
+      })
+        // var resultType = "success";
+        // wx.redirectTo({
+        //     url: '../goods/pay/pay?resultType=' + resultType
+        // })
     },
     //彈起購物車
     toggleList: function () {
@@ -184,20 +189,7 @@ Page({
           }
         })
 
-        wx.request({
-          url: 'http://10.2.20.127:8080/sell/spider',
-          method:'GET',
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function (res) {
-           
-          that.setData({
-            vegprice:res.data.Veg_price
-          })
-            console.log(that.data.vegprice);
-          }
-        })
+ 
 
 
     },
@@ -234,5 +226,41 @@ Page({
         }
       }
       console.log(this.data.totalCount);
+    },
+    allorder:function(){
+      const app = getApp();
+      let that= this;
+      var openid = app.globalData.openid; 
+        wx.request({
+          url: 'http://localhost:8080/sell/buyer/order/list',
+          method:'GET',
+          data:{
+            openid:openid,
+          },
+          success:function(res){
+            var info = res.data.data;
+            that.setData({
+              allorder: info,
+            })
+            console.log(that.data.allorder);
+          }
+        })
+    },
+    vegpr:function(){
+      let that = this;
+      wx.request({
+        url: 'http://10.2.20.127:8080/sell/spider',
+        method: 'GET',
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+
+          that.setData({
+            vegprice: res.data.Veg_price
+          })
+          console.log(that.data.vegprice);
+        }
+      })
     }
 })

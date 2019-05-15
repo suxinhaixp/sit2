@@ -26,7 +26,7 @@
     </view>
     <view class="bulletin-wrapper">
       <image src="../image/bulletin@2x.png" style="width:22px;height:12px;"></image>
-      <span class="bulletin-text">"本食堂营业时间早上6点至晚上20点"</span>
+      <span class="bulletin-text">"本食堂营业时间早上10点至晚上20点"</span>
     </view>
     <view class="background">
       <image src="http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg" style="width:100%;height:100%;"></image>
@@ -42,12 +42,30 @@
    <view class="tab-item">
     <a class="{{status==1 ? 'active':''}}" bindtap="tabChange" data-type="1">评论</a>
    </view> 
-   <view class="tab-item">
-    <a class="{{status==2 ? 'active':''}}" bindtap="tabChange" data-type="2">今日菜价</a>
+   <view class="tab-item" catchtap='allorder'>
+    <a class="{{status==2 ? 'active':''}}" bindtap="tabChange" data-type="2">我的订单</a>
+   </view> 
+   <view class="tab-item" catchtap='vegpr'>
+    <a class="{{status==3 ? 'active':''}}" bindtap="tabChange" data-type="3">今日菜价</a>
    </view>
 </view>
-<!--tab -->
+
+<wxs module="filter" src="./goods.wxs"></wxs>
 <view  wx:if="{{status==2||item.status==status}}">
+  <view class="container">
+    
+    <view wx:for="{{allorder}}" data-item-index="{{index}}">
+    <text class="ordertext">
+     订单号:{{item.orderId}} 
+     订单金额:{{item.orderAmount}}
+     订单时间:{{filter.formatTime(item.createTime,'Y/M/D h:m:s')}}
+      </text>
+    </view>
+ 
+ </view>
+</view>
+<!--tab -->
+<view  wx:if="{{status==3||item.status==status}}">
   <view class="container">
   <view class="table">
     <view wx:for="{{vegprice}}" data-item-index="{{index}}">
@@ -119,7 +137,7 @@
             <view class="price highlight">￥{{totalPrice}}</view>
             <view class="desc">{{goodtext}}</view>
           </view>
-          <view class="content-right" catchtap="pay">
+          <view class="content-right" catchtap="pay" >
             <view class="pay enough" :class="payClass">
               {{payDesc}}
             </view>

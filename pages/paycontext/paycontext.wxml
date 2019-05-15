@@ -1,0 +1,13 @@
+<view class="itemView">姓名：
+    <input class="input" name="userName" placeholder="请输入姓名"
+    bindinput="userNameInput"/>
+  </view>
+<view class="itemView">手机：
+    <input class="input" name="phone" placeholder="请输入手机"
+     bindinput="phoneInput" />
+  </view>
+<view class="viewName" style="background-color:#fbf9fe">
+  <button class="buyBtn" bindtap="buyBtnClick">买单</button>
+  <button class="returnBtn" bindtap="returnBtnClick">返回</button>
+</view>
+

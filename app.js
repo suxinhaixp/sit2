@@ -35,6 +35,8 @@ App({
     goods:null,
     appid: 'wxb234425ad5818014',
     secret: 'f30d6164517fbe6f20feb3cd29aad4bd',
-    openid:null
+    openid:null,
+    carinfo:null,
+    orderId:null,
   }
 })

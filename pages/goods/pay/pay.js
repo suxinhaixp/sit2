@@ -11,12 +11,17 @@ Page({
                 resultContent:"支付成功",
                 url:'../../order/list/list?status=tosend'
             });
-        }else{
-            this.setData({
-                resultType:"warn",
-                resultContent:"支付失败",
-                url:'../../order/list/list'
-            });
         }
+    },
+    detail:function(){
+      const app = getApp();
+      var openId = app.globalData.openid;
+      var orderId = app.globalData.orderId;
+      var title = '您的订单是：' + orderId;
+           wx.showModal({
+             title: title,
+             content: '订单',
+           })
+    
     }
 });

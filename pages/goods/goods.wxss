@@ -711,3 +711,15 @@ font-weight: 400;
 background-color: #dadada;
 }
 
+.ordertext{
+  font-size:4vw;
+  display:block;
+  padding:1vh 0;
+  word-wrap:break-word;
+  /* 控制强制换行 */
+  word-break:normal;
+  /* 控制整个字符在一行的断行，不会造成一个单词分行显示 */
+  text-align:justify
+  /* 字符俩边对齐 */
+
+}
