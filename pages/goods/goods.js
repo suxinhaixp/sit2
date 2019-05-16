@@ -267,5 +267,25 @@ Page({
       wx.navigateTo({
         url: '../result/result?orderId='+orderId,
       })
-    }
+    },
+  getUserInfo: function () {
+    var that = this
+    wx.getSetting({
+      success(res) {
+        console.log(res);
+        if (!res.authSetting['scope.userInfo']) {
+          wx.authorize({
+            scope: 'scope.userInfo',
+            success() {
+              
+            }
+          })
+        }
+        else {
+          
+        }
+      }
+    })
+  },
+
 })
