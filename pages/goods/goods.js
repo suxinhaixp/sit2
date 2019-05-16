@@ -125,13 +125,11 @@ Page({
       const appInstance = getApp()
       appInstance.globalData.carinfo=this.data.carArray;
       console.log(appInstance.globalData.carinfo)
+      if (appInstance.globalData.carinfo.length != 0){
       wx.navigateTo({
         url:'../paycontext/paycontext',
       })
-        // var resultType = "success";
-        // wx.redirectTo({
-        //     url: '../goods/pay/pay?resultType=' + resultType
-        // })
+      }
     },
     //彈起購物車
     toggleList: function () {
@@ -173,7 +171,7 @@ Page({
             payDesc: this.payDesc()
         });
         wx.request({
-          url: 'http://10.2.20.127:8080/sell/buyer/product/list',
+          url: 'https://suxinhaixp.xyz/sell/buyer/product/list',
           method: 'GET',
           header: {
             'content-type': 'application/json'
@@ -232,7 +230,7 @@ Page({
       let that= this;
       var openid = app.globalData.openid; 
         wx.request({
-          url: 'http://localhost:8080/sell/buyer/order/list',
+          url: 'https://suxinhaixp.xyz/sell/buyer/order/list',
           method:'GET',
           data:{
             openid:openid,
@@ -249,7 +247,7 @@ Page({
     vegpr:function(){
       let that = this;
       wx.request({
-        url: 'http://10.2.20.127:8080/sell/spider',
+        url: 'https://suxinhaixp.xyz/sell/spider',
         method: 'GET',
         header: {
           'content-type': 'application/json'
@@ -261,6 +259,13 @@ Page({
           })
           console.log(that.data.vegprice);
         }
+      })
+    },
+    result:function(e){
+      console.log(e.currentTarget.dataset.item);
+      var orderId = e.currentTarget.dataset.item;
+      wx.navigateTo({
+        url: '../result/result?orderId='+orderId,
       })
     }
 })

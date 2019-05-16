@@ -1,2 +1,37 @@
-<!--pages/result/result.wxml-->
-<text>pages/result/result.wxml</text>
+<!--pages/order/detail.wxml-->
+		<view class="p_all bg_white mt10 font_14">
+			<view class="df">
+				<view class="df_1 c6">
+				<view class="l_h20">
+        <text class="fl_r mr10">姓名：{{detail.buyerName}}\n</text>
+        <text class="fl_r mr10">手机:{{detail.buyerPhone}}</text>
+        </view>
+				</view>
+			</view>
+		</view>	
+<wxs module="filter" src="./result.wxs"></wxs>
+		<view class="p_all bg_white mt10 c6 l_h20  font_14">
+			<view >
+			订单状态：<text class="red">{{detail.orderStatus==1? '完结':''}}</text>
+			</view>
+			<view >
+			订单编号：{{detail.orderId}}
+			</view>
+			<view class="mt10">
+			订单时间：{{filter.formatTime(detail.createTime)}}
+			</view>         
+		    </view>
+
+           <view class="p_all bg_white mt10 font_14">
+			<textarea>内容:
+        <view wx:for="{{detail.orderDetailList}}">
+          {{index}}:
+          {{item.productName}} {{item.productQuantity}}份
+        </view>
+      
+      </textarea> 
+		</view>	
+
+	<view class="zhifu mt10 tc">金额：<span class="font_20 red">¥ {{detail.orderAmount}}</span></view>
+
+

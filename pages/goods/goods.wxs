@@ -13,24 +13,16 @@ formatNumber:function(n) {
   return n[1] ?n: '0' + n
 },
 
- formatTime:function(number, format) {
-
-  var formateArr = ['Y', 'M', 'D', 'h', 'm', 's'];
-  var returnArr = [];
-
-   var date = getDate(number * 1000);
-  returnArr.push(date.getFullYear());
-  returnArr.push(formatNumber(date.getMonth() + 1));
-  returnArr.push(formatNumber(date.getDate()));
-
-  returnArr.push(formatNumber(date.getHours()));
-  returnArr.push(formatNumber(date.getMinutes()));
-  returnArr.push(formatNumber(date.getSeconds()));
-
-  for (var i =0;i< returnArr.length;i++) {
-    format = format.replace(formateArr[i], returnArr[i]);
-  }
-  return format;
+ formatTime:function(number) {
+   var date = getDate(number * 1000-46800*1000);
+   var year = date.getFullYear();
+   var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1):date.getMonth() + 1;
+   var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+   var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+   var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+   var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+   var datetime = year+'/'+month+'/'+day+'   '+hour+':'+minute+':'+second;
+   return datetime;
 }
 }
 module.exports = {

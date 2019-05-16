@@ -54,11 +54,11 @@
 <view  wx:if="{{status==2||item.status==status}}">
   <view class="container">
     
-    <view wx:for="{{allorder}}" data-item-index="{{index}}">
-    <text class="ordertext">
+    <view wx:for="{{allorder}}" >
+    <text id="ha" class="ordertext" catchtap='result' data-item="{{item.orderId}}">
      订单号:{{item.orderId}} 
      订单金额:{{item.orderAmount}}
-     订单时间:{{filter.formatTime(item.createTime,'Y/M/D h:m:s')}}
+     订单时间:{{filter.formatTime(item.createTime)}}
       </text>
     </view>
  
@@ -102,7 +102,7 @@
           <view class="name">{{food.name}}</view>
           <view class="desc">{{food.description}}</view>
           <view class="price">
-            <view class="now">￥{{food.price}}</view>
+            <view class="now">￥{{food.price}}\t 库存:{{food.quantity}}</view>
           </view>
 
           <!--cartControl-->

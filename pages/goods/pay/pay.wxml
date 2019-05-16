@@ -3,7 +3,6 @@
        <icon type="{{resultType}}" size="72"></icon>
     </view>
     <view class="result_content">{{resultContent}}</view>
-    <navigator></navigator>
     <view>
         <button class="result_to_order"  catchtap='detail'>查看订单</button> 
     </view>

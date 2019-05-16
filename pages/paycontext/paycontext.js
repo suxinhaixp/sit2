@@ -58,7 +58,7 @@ Page({
        
       }
       wx.request({
-        url: 'http://localhost:8080/sell/buyer/order/create',
+        url: 'https://suxinhaixp.xyz/sell/buyer/order/create',
         method:'POST',
         header: {
           'content-type': 'application/json'
@@ -72,6 +72,13 @@ Page({
         },
         success: function(res){
           console.log(res);
+          if(res.statusCode==500){
+            var message = res.data.message;
+              wx.showModal({
+                title: message,
+                content: 'error',
+              })
+          }else{
           const oneinstance = getApp();
           oneinstance.globalData.orderId=res.data.data.orderId;
           console.log(oneinstance.globalData.orderId);
@@ -79,6 +86,7 @@ Page({
           wx.redirectTo({
             url: '../goods/pay/pay?resultType=' + resultType,
           })
+              }
         }
       })
     }

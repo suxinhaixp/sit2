@@ -4,6 +4,7 @@ Page({
         resultContent:""
     },
     onLoad:function(options){
+      
         var resultType=options.resultType;
         if(resultType=="success"){
             this.setData({
