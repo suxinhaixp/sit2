@@ -14,7 +14,7 @@ formatNumber:function(n) {
 },
 
  formatTime:function(number) {
-   var date = getDate(number * 1000-46800*1000);
+   var date = getDate(number * 1000);
    var year = date.getFullYear();
    var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1):date.getMonth() + 1;
    var day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
